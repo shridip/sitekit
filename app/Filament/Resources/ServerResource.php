@@ -304,7 +304,7 @@ class ServerResource extends Resource
                     ->visible(fn (Server $record) => $record->isActive())
                     ->action(function (Server $record) {
                         // Request a heartbeat from agent
-                        $record->update(['heartbeat_requested_at' => now()]);
+                        $record->update(['last_heartbeat_at' => now()]);
                         Notification::make()
                             ->title('Refresh Requested')
                             ->body('Server status will update on next agent heartbeat.')
