@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\OtpChallengeController;
 use App\Http\Controllers\BackupController;
 use App\Http\Controllers\ProvisioningController;
 use App\Http\Controllers\SourceProviderController;
@@ -29,6 +30,14 @@ Route::redirect('/login', '/app/login')->name('login');
 Route::redirect('/register', '/app/register')->name('register');
 
 Route::redirect('/dashboard', '/app')->name('dashboard');
+
+// OTP / Two-Factor Authentication Challenge
+Route::get('/auth/otp-challenge', [OtpChallengeController::class, 'show'])
+    ->middleware('guest')
+    ->name('auth.otp-challenge');
+Route::post('/auth/otp-verify', [OtpChallengeController::class, 'verify'])
+    ->middleware('guest')
+    ->name('auth.otp-verify');
 
 Route::get('/team-invitations/{invitation}', [TeamInvitationController::class, 'accept'])
     ->middleware(['signed', 'verified', 'auth', AuthenticateSession::class])

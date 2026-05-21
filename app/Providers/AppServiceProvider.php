@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Events\ServerStatsUpdated;
 use App\Events\ServerStatusChanged;
+use App\Http\Responses\LoginResponse;
+use Filament\Http\Responses\Auth\Contracts\LoginResponse as LoginResponseContract;
 use App\Listeners\CreatePersonalTeam;
 use App\Listeners\ServerStatsListener;
 use App\Listeners\ServerStatusListener;
@@ -24,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(LoginResponseContract::class, LoginResponse::class);
     }
 
     /**
