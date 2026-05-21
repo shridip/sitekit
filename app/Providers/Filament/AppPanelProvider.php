@@ -3,6 +3,8 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\ApiTokens;
+use App\Filament\Pages\Auth\Login;
+use App\Filament\Pages\Auth\Register;
 use App\Filament\Pages\CreateTeam;
 use App\Filament\Pages\EditProfile;
 use App\Filament\Pages\EditTeam;
@@ -43,8 +45,8 @@ class AppPanelProvider extends PanelProvider
             ->default()
             ->id('app')
             ->path('app')
-            ->login()
-            ->registration()
+            ->login(Login::class)
+            ->registration(Register::class)
             ->passwordReset()
             ->emailVerification()
             ->viteTheme('resources/css/app.css')

@@ -2,11 +2,22 @@
 
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\AiController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\HeartbeatController;
 use App\Http\Controllers\ProvisioningController;
 use App\Http\Controllers\WebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+// Auth API endpoints (public)
+Route::prefix('auth')->group(function () {
+    Route::post('/login', [AuthController::class, 'login'])->name('api.auth.login');
+    Route::post('/register', [AuthController::class, 'register'])->name('api.auth.register');
+    Route::post('/otp-verify', [AuthController::class, 'verifyOtp'])->name('api.auth.otp-verify');
+    Route::post('/logout', [AuthController::class, 'logout'])
+        ->middleware('auth:sanctum')
+        ->name('api.auth.logout');
+});
 
 Route::get('/user', function (Request $request) {
     return $request->user();
